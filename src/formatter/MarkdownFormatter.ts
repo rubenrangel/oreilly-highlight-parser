@@ -1,6 +1,11 @@
 import {Formatter} from "./Formatter";
 import {OreillyHighlight} from "../OreillyHighlight";
 
+/**
+ * Formatter to transform a highlight into a Markdown string.
+ *
+ * It formats the highlight as a blockquote with the highlight text, followed by the chapter title and book title.
+ */
 export class MarkdownFormatter implements Formatter {
   transform(record: OreillyHighlight): string {
     const {bookTitle, annotationURL, highlight} = record;
