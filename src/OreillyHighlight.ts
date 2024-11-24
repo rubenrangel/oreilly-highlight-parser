@@ -1,7 +1,7 @@
 /**
  * A highlight from the O'Reilly Learning Platform.
  */
-interface OreillyHighlight {
+export interface OreillyHighlight {
   /**
    * The title of the book.
    */

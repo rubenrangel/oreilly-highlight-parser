@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MarkdownFormatter > transform > it should return a formatted string 1`] = `
+"> Using logic.
+>
+> \\- Chapter 1: Logic, [Essential Programming](https://exmaple.com/book/chapter1#section)"
+`;
+
+exports[`MarkdownFormatter > transform > the chapter title should be escaped if it starts with a number and a period 1`] = `
+"> Using logic.
+>
+> \\- 1\\. Logic, [Essential Programming](https://exmaple.com/book/chapter1#section)"
+`;
