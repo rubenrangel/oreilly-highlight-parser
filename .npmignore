@@ -2,3 +2,7 @@
 src
 tests
 tsconfig.json
+.github
+.prettierignore
+.prettierrc
+eslint.config.mjs
