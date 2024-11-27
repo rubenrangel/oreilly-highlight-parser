@@ -1,6 +1,8 @@
 import {describe, expect, test} from "vitest";
 import {MarkdownFormatter} from "../../src/formatter/MarkdownFormatter";
 import {OreillyHighlight} from "../../src/OreillyHighlight";
+import {Temporal} from "@js-temporal/polyfill";
+import PlainDate = Temporal.PlainDate;
 
 describe('MarkdownFormatter', function () {
   describe('transform', function () {
@@ -8,7 +10,7 @@ describe('MarkdownFormatter', function () {
       const highlight: OreillyHighlight = {
         bookTitle: 'Essential Programming',
         chapterTitle: 'Chapter 1: Logic',
-        dateOfHighlight: '2021-09-19',
+        dateOfHighlight: new PlainDate(2021, 9, 29),
         bookURL: 'https://exmaple.com/book',
         chapterURL: 'https://exmaple.com/book/chapter1',
         annotationURL: 'https://exmaple.com/book/chapter1#section',
@@ -27,7 +29,7 @@ describe('MarkdownFormatter', function () {
       const highlight: OreillyHighlight = {
         bookTitle: 'Essential Programming',
         chapterTitle: '1. Logic',
-        dateOfHighlight: '2021-09-19',
+        dateOfHighlight: new PlainDate(2021, 9, 29),
         bookURL: 'https://exmaple.com/book',
         chapterURL: 'https://exmaple.com/book/chapter1',
         annotationURL: 'https://exmaple.com/book/chapter1#section',

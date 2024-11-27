@@ -1,3 +1,6 @@
+import {Temporal} from "@js-temporal/polyfill";
+import PlainDate = Temporal.PlainDate;
+
 /**
  * A highlight from the O'Reilly Learning Platform.
  */
@@ -15,7 +18,7 @@ export interface OreillyHighlight {
   /**
    * The date the highlight was created.
    */
-  dateOfHighlight: string
+  dateOfHighlight: PlainDate
 
   /**
    * The URL of the book.

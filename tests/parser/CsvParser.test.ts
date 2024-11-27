@@ -1,6 +1,8 @@
 import {describe, expect, test} from "vitest";
 import {CsvCallbackParser, CsvStreamParser, CsvSyncParser} from "../../src/parser/CsvParser";
 import {OreillyHighlight} from "../../src/OreillyHighlight";
+import {Temporal} from "@js-temporal/polyfill";
+import PlainDate = Temporal.PlainDate;
 
 describe('CsvParser', () => {
   describe('parse', () => {
@@ -18,7 +20,7 @@ describe('CsvParser', () => {
         {
           bookTitle: "The Art of Computer Programming, Vol. 1",
           chapterTitle: "1.1 Algorithms",
-          dateOfHighlight: "2021-01-01",
+          dateOfHighlight: new PlainDate(2021, 1, 1),
           bookURL: "https://example.com/book",
           chapterURL: "https://example.com/chapter",
           annotationURL: "https://example.com/annotation",
@@ -55,7 +57,7 @@ describe('CsvCallbackParser', () => {
         {
           bookTitle: "The Art of Computer Programming, Vol. 1",
           chapterTitle: "1.1 Algorithms",
-          dateOfHighlight: "2021-01-01",
+          dateOfHighlight: new PlainDate(2021, 1, 1),
           bookURL: "https://example.com/book",
           chapterURL: "https://example.com/chapter",
           annotationURL: "https://example.com/annotation",
@@ -91,7 +93,7 @@ describe('CsvStreamParser', () => {
         {
           bookTitle: "The Art of Computer Programming, Vol. 1",
           chapterTitle: "1.1 Algorithms",
-          dateOfHighlight: "2021-01-01",
+          dateOfHighlight: new PlainDate(2021, 1, 1),
           bookURL: "https://example.com/book",
           chapterURL: "https://example.com/chapter",
           annotationURL: "https://example.com/annotation",
