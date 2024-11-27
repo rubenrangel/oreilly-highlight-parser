@@ -1,7 +1,5 @@
-import {OreillyHighlight} from "../OreillyHighlight";
-import {Formatter} from "./Formatter";
-import {Temporal} from "@js-temporal/polyfill";
-
+import { OreillyHighlight } from "../OreillyHighlight";
+import { Formatter } from "./Formatter";
 
 /**
  * Formatter to transform a highlight into a JSON string.

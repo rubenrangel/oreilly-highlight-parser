@@ -1,5 +1,1 @@
-export {
-  CsvSyncParser,
-  CsvCallbackParser,
-  CsvStreamParser
-} from "./CsvParser";
+export { CsvSyncParser, CsvCallbackParser, CsvStreamParser } from "./CsvParser";

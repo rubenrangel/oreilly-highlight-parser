@@ -1,4 +1,4 @@
-import {Temporal} from "@js-temporal/polyfill";
+import { Temporal } from "@js-temporal/polyfill";
 import PlainDate = Temporal.PlainDate;
 
 /**
@@ -8,45 +8,45 @@ export interface OreillyHighlight {
   /**
    * The title of the book.
    */
-  bookTitle: string
+  bookTitle: string;
 
   /**
    * The title of the chapter.
    */
-  chapterTitle: string
+  chapterTitle: string;
 
   /**
    * The date the highlight was created.
    */
-  dateOfHighlight: PlainDate
+  dateOfHighlight: PlainDate;
 
   /**
    * The URL of the book.
    */
-  bookURL: string
+  bookURL: string;
 
   /**
    * The URL of the chapter.
    */
-  chapterURL: string
+  chapterURL: string;
 
   /**
    * The URL of the annotation.
    */
-  annotationURL: string
+  annotationURL: string;
 
   /**
    * The highlighted text.
    */
-  highlight: string
+  highlight: string;
 
   /**
    * The color of the highlight.
    */
-  color: string
+  color: string;
 
   /**
    * A personal note associated with the highlight.
    */
-  personalNote: string
+  personalNote: string;
 }

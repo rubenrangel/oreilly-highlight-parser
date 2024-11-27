@@ -1,4 +1,4 @@
-import {OreillyHighlight} from "../OreillyHighlight";
+import { OreillyHighlight } from "../OreillyHighlight";
 
 /**
  * A formatter to transform highlights into a specific output.
