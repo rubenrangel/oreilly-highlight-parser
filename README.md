@@ -48,7 +48,7 @@ const parser = new CsvSyncParser();
  *   ...
  * ]
  */
-const highlights = parser.parseSync(csvContents);
+const highlights = parser.parse(csvContents);
 ```
 
 #### `CsvCallbackParser`
@@ -133,7 +133,7 @@ const highlight = {
 }
 const formatter = new JsonFormatter();
 // "{\"bookTitle\":\"Title of the book\",\"chapterTitle\":\"Title of the chapter\",\"dateOfHighlight\":\"2024-11-27\",\"bookUrl\":\"https://example.com/book\",\"chapterUrl\":\"https://example.com/book/chapter\",\"annotationUrl\":\"https://example.com/book/chapter/annotation\",\"highlight\":\"Highlighted text\",\"color\":\"YELLOW\",\"personalNote\":\"Personal note\"}"
-const json = formatter.format(highlight);
+const json = formatter.transform(highlight);
 ```
 
 #### `MarkdownFormatter`
@@ -161,5 +161,5 @@ const formatter = new MarkdownFormatter();
  * >
  * > \\- Title of the chapter, [Title of the book](https://example.com/book/chapter/annotation)
  */
-const markdown = formatter.format(highlight);
+const markdown = formatter.transform(highlight);
 ```

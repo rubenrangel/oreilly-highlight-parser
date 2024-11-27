@@ -1,7 +1,15 @@
 {
   "name": "oreilly-highlight-parser",
-  "version": "1.0.0-beta.1",
-  "description": "",
+  "version": "1.0.0-beta.2",
+  "description": "A library to parse the highlights export file from the O'Reilly Learning Platform.",
+  "keywords": [
+    "oreilly",
+    "highlight",
+    "csv",
+    "formatter",
+    "parser"
+  ],
+  "homepage": "https://github.com/rubenrangel/oreilly-highlight-parser",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
