@@ -13,6 +13,11 @@
   "homepage": "https://github.com/rubenrangel/oreilly-highlight-parser",
   "license": "MIT",
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "types": "dist/index.d.ts",
   "engines": {
     "node": ">=14.0.0"
