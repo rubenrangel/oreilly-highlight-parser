@@ -59,6 +59,11 @@ export class CsvSyncParser {
   }
 }
 
+export type CsvCallback = (
+  err: Error | null,
+  records: OreillyHighlight[],
+) => void;
+
 /**
  * Parser to retrieve the highlights from a CSV file using a callback.
  */
@@ -66,10 +71,7 @@ export class CsvCallbackParser {
   /**
    * Parses the input CSV file and returns the highlights as an array using a callback.
    */
-  parse(
-    input: string | Buffer,
-    callback: (err: Error | null, records: OreillyHighlight[]) => void,
-  ): void {
+  parse(input: string | Buffer, callback: CsvCallback): void {
     parse(input, parseOptions, (err, records) => {
       if (err) {
         callback(err, []);
@@ -100,6 +102,7 @@ export class CsvStreamParser extends stream.Transform {
   }
 
   _transform(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- The type of `chunk` is any in the overriden function.
     chunk: any,
     encoding: BufferEncoding,
     callback: stream.TransformCallback,
