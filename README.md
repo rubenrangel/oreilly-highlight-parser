@@ -27,7 +27,7 @@ Each parser reads the highlights from the CSV file and expects the CSV to have t
 Reads all the highlights in the file into an array.
 
 ```typescript
-import { CsvSyncParser } from 'oreilly-highlight-parser';
+import { CsvSyncParser } from 'oreilly-highlight-parser/CsvParser';
 
 const csvContents = fs.readFileSync('path/to/highlights.csv', 'utf8');
 const parser = new CsvSyncParser();
@@ -56,7 +56,7 @@ const highlights = parser.parse(csvContents);
 Reads all the highlights in the file and calls a callback with the array of highlights.
 
 ```typescript
-import { CsvCallbackParser } from 'oreilly-highlight-parser';
+import { CsvCallbackParser } from 'oreilly-highlight-parser/CsvParser';
 
 const csvContents = fs.readFileSync('path/to/highlights.csv', 'utf8');
 const parser = new CsvCallbackParser();
@@ -87,7 +87,7 @@ parser.parse(csvContents, (error, highlights) => {
 Stream highlights from the file.
 
 ```typescript
-import { CsvStreamParser } from 'oreilly-highlight-parser';
+import { CsvStreamParser } from 'oreilly-highlight-parser/CsvParser';
 
 const csvStream = fs.createReadStream('path/to/highlights.csv');
 const parser = new CsvStreamParser();
@@ -118,7 +118,7 @@ csvStream.pipe(parser)
 Formats the highlight into a JSON string.
 
 ```typescript
-import { JsonFormatter } from 'oreilly-highlight-parser';
+import { JsonFormatter } from 'oreilly-highlight-parser/formmatter/JsonFormatter';
 
 const highlight = {
     bookTitle: 'Title of the book',
@@ -141,7 +141,7 @@ const json = formatter.transform(highlight);
 Formats the highlight into a Markdown quote block with a link to the annotation.
 
 ```typescript
-import { MarkdownFormatter } from 'oreilly-highlight-parser';
+import { MarkdownFormatter } from 'oreilly-highlight-parser/formmatter/MarkdownFormatter';
 
 const highlight = {
     bookTitle: 'Title of the book',
