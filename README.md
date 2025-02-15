@@ -1,8 +1,10 @@
-# oreilly-highlight-parser
+# O'Reilly Highlight Parser
 
-A library to parse the highlights export file from the O'Reilly Learning Platform.
+A TypeScript library for parsing highlight exports from the **O'Reilly Learning Platform**.
 
 ## Installation
+
+Install via NPM:
 
 ```bash
 npm install oreilly-highlight-parser
@@ -10,156 +12,176 @@ npm install oreilly-highlight-parser
 
 ## Usage
 
+This library provides three parsers to extract highlights from an O'Reilly CSV file. The CSV **must** contain the following columns:
+
+- **Book Title**
+- **Chapter Title**
+- **Date of Highlight**
+- **Book URL**
+- **Chapter URL**
+- **Annotation URL**
+- **Highlight**
+- **Color**
+- **Personal Note**
+
 ### Parsers
 
-Each parser reads the highlights from the CSV file and expects the CSV to have the following columns:
-- `Book Title`
-- `Chapter Title`
-- `Date of Highlight`
-- `Book URL`
-- `Chapter URL`
-- `Annotation URL`
-- `Highlight`
-- `Color`
-- `Personal Note`
+#### Synchronous Parsing (`CsvSyncParser`)
 
-#### `CsvSyncParser`
-Reads all the highlights in the file into an array.
+Reads the entire CSV file into an array.
 
 ```typescript
-import { CsvSyncParser } from 'oreilly-highlight-parser/CsvParser';
+import fs from 'fs';
+import { CsvSyncParser } from 'oreilly-highlight-parser/CsvSyncParser';
 
 const csvContents = fs.readFileSync('path/to/highlights.csv', 'utf8');
 const parser = new CsvSyncParser();
 
-/**
- * [
- *   {
- *     bookTitle: 'Title of the book',
- *     chapterTitle: 'Title of the chapter',
- *     dateOfHighlight: 2024-11-27, // PlainDate
- *     bookUrl: 'https://example.com/book',
- *     chapterUrl: 'https://example.com/book/chapter',
- *     annotationUrl: 'https://example.com/book/chapter/annotation',
- *     highlight: 'Highlighted text',
- *     color: 'YELLOW',
- *     personalNote: 'Personal note',
- *   },
- *   ...
- * ]
- */
 const highlights = parser.parse(csvContents);
+
+console.log(highlights);
 ```
 
-#### `CsvCallbackParser`
+**Example Output:**
+```json
+[
+  {
+    "bookTitle": "Title of the book",
+    "chapterTitle": "Title of the chapter",
+    "dateOfHighlight": "2024-11-27",
+    "bookUrl": "https://example.com/book",
+    "chapterUrl": "https://example.com/book/chapter",
+    "annotationUrl": "https://example.com/book/chapter/annotation",
+    "highlight": "Highlighted text",
+    "color": "YELLOW",
+    "personalNote": "Personal note"
+  }
+]
+```
 
-Reads all the highlights in the file and calls a callback with the array of highlights.
+#### Callback-Based Parsing (`CsvCallbackParser`)
+
+Reads highlights and calls a callback function with the parsed data.
 
 ```typescript
-import { CsvCallbackParser } from 'oreilly-highlight-parser/CsvParser';
+import fs from 'fs';
+import { CsvCallbackParser } from 'oreilly-highlight-parser/CsvCallbackParser';
 
 const csvContents = fs.readFileSync('path/to/highlights.csv', 'utf8');
 const parser = new CsvCallbackParser();
 
 parser.parse(csvContents, (error, highlights) => {
-  // do something with highlights
-  /**
-   * [
-   *   {
-   *     bookTitle: 'Title of the book',
-   *     chapterTitle: 'Title of the chapter',
-   *     dateOfHighlight: 2024-11-27, // PlainDate
-   *     bookUrl: 'https://example.com/book',
-   *     chapterUrl: 'https://example.com/book/chapter',
-   *     annotationUrl: 'https://example.com/book/chapter/annotation',
-   *     highlight: 'Highlighted text',
-   *     color: 'YELLOW',
-   *     personalNote: 'Personal note',
-   *   },
-   *   ...
-   * ]
-   */
+  if (error) {
+    console.error('Error parsing CSV:', error);
+    return;
+  }
+
+  console.log(highlights);
 });
 ```
 
-#### `CsvStreamParser`
+#### Streaming Parsing (`CsvStreamParser`)
 
-Stream highlights from the file.
+Processes highlights as a stream.
 
 ```typescript
-import { CsvStreamParser } from 'oreilly-highlight-parser/CsvParser';
+import fs from 'fs';
+import { CsvStreamParser } from 'oreilly-highlight-parser/CsvStreamParser';
 
 const csvStream = fs.createReadStream('path/to/highlights.csv');
 const parser = new CsvStreamParser();
 
 csvStream.pipe(parser)
   .on('data', (highlight) => {
-    // do something with highlight
-    /**
-     * {
-     *   bookTitle: 'Title of the book',
-     *   chapterTitle: 'Title of the chapter',
-     *   dateOfHighlight: 2024-11-27, // PlainDate
-     *   bookUrl: 'https://example.com/book',
-     *   chapterUrl: 'https://example.com/book/chapter',
-     *   annotationUrl: 'https://example.com/book/chapter/annotation',
-     *   highlight: 'Highlighted text',
-     *   color: 'YELLOW',
-     *   personalNote: 'Personal note',
-     * }
-     */
+    console.log(highlight);
+  })
+  .on('error', (err) => {
+    console.error('Error parsing CSV:', err);
   });
 ```
 
 ### Formatters
 
-#### `JsonFormatter`
+#### JSON Formatter (`JsonFormatter`)
 
-Formats the highlight into a JSON string.
+Converts parsed highlights into JSON.
 
 ```typescript
-import { JsonFormatter } from 'oreilly-highlight-parser/formmatter/JsonFormatter';
+import { JsonFormatter } from 'oreilly-highlight-parser/JsonFormatter';
 
 const highlight = {
-    bookTitle: 'Title of the book',
-    chapterTitle: 'Title of the chapter',
-    dateOfHighlight: 2024-11-27, // PlainDate
-    bookUrl: 'https://example.com/book',
-    chapterUrl: 'https://example.com/book/chapter',
-    annotationUrl: 'https://example.com/book/chapter/annotation',
-    highlight: 'Highlighted text',
-    color: 'YELLOW',
-    personalNote: 'Personal note',
-}
+  bookTitle: 'Title of the book',
+  chapterTitle: 'Title of the chapter',
+  dateOfHighlight: 2024-11-27, // PlainDate
+  bookUrl: 'https://example.com/book',
+  chapterUrl: 'https://example.com/book/chapter',
+  annotationUrl: 'https://example.com/book/chapter/annotation',
+  highlight: 'Highlighted text',
+  color: 'YELLOW',
+  personalNote: 'Personal note',
+};
+
 const formatter = new JsonFormatter();
-// "{\"bookTitle\":\"Title of the book\",\"chapterTitle\":\"Title of the chapter\",\"dateOfHighlight\":\"2024-11-27\",\"bookUrl\":\"https://example.com/book\",\"chapterUrl\":\"https://example.com/book/chapter\",\"annotationUrl\":\"https://example.com/book/chapter/annotation\",\"highlight\":\"Highlighted text\",\"color\":\"YELLOW\",\"personalNote\":\"Personal note\"}"
 const json = formatter.transform(highlight);
+
+console.log(json);
 ```
 
-#### `MarkdownFormatter`
+**Example Output:**
+```json
+{
+  "bookTitle": "Title of the book",
+  "chapterTitle": "Title of the chapter",
+  "dateOfHighlight": "2024-11-27",
+  "bookUrl": "https://example.com/book",
+  "chapterUrl": "https://example.com/book/chapter",
+  "annotationUrl": "https://example.com/book/chapter/annotation",
+  "highlight": "Highlighted text",
+  "color": "YELLOW",
+  "personalNote": "Personal note"
+}
+```
 
-Formats the highlight into a Markdown quote block with a link to the annotation.
+#### Markdown Formatter (`MarkdownFormatter`)
+
+Formats highlights into a Markdown quote block.
 
 ```typescript
-import { MarkdownFormatter } from 'oreilly-highlight-parser/formmatter/MarkdownFormatter';
+import { MarkdownFormatter } from 'oreilly-highlight-parser/MarkdownFormatter';
 
 const highlight = {
-    bookTitle: 'Title of the book',
-    chapterTitle: 'Title of the chapter',
-    dateOfHighlight: 2024-11-27, // PlainDate
-    bookUrl: 'https://example.com/book',
-    chapterUrl: 'https://example.com/book/chapter',
-    annotationUrl: 'https://example.com/book/chapter/annotation',
-    highlight: 'Highlighted text',
-    color: 'YELLOW',
-    personalNote: 'Personal note',
-}
-const formatter = new MarkdownFormatter();
+  bookTitle: 'Title of the book',
+  chapterTitle: 'Title of the chapter',
+  dateOfHighlight: 2024-11-27, // PlainDate
+  bookUrl: 'https://example.com/book',
+  chapterUrl: 'https://example.com/book/chapter',
+  annotationUrl: 'https://example.com/book/chapter/annotation',
+  highlight: 'Highlighted text',
+  color: 'YELLOW',
+  personalNote: 'Personal note',
+};
 
-/**
- * > Highlighted Text
- * >
- * > \\- Title of the chapter, [Title of the book](https://example.com/book/chapter/annotation)
- */
+const formatter = new MarkdownFormatter();
 const markdown = formatter.transform(highlight);
+
+console.log(markdown);
 ```
+
+**Example Output:**
+
+```markdown
+> Highlighted text
+>
+> - Chapter 1: Logic, [Essential Programming](https://example.com/book/chapter1#section)
+```
+**Escaped Chapter Titles Starting with Numbers:**
+
+```markdown
+> Highlighted text
+>
+> - 1\. Logic, [Essential Programming](https://example.com/book/chapter1#section)
+```
+
+## License
+
+This library is licensed under the **MIT License**.
