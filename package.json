@@ -1,7 +1,8 @@
 {
   "name": "oreilly-highlight-parser",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "A library to parse the highlights export file from the O'Reilly Learning Platform.",
+  "type": "module",
   "keywords": [
     "oreilly",
     "highlight",
